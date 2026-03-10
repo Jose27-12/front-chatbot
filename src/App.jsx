@@ -11,16 +11,14 @@ const styleTag = document.createElement("style");
 styleTag.textContent = globalStyles;
 document.head.appendChild(styleTag);
 
-// Demo user — replace with your auth context or prop if needed
 const DEMO_USER = { id: 1, nombre: "Estudiante Demo" };
 
 export default function App() {
-  const [user]    = useState(DEMO_USER);
-  const [view,     setView]    = useState("chat");   // "chat" | "history"
-  const [convId,   setConvId]  = useState(null);
+  const [user]            = useState(DEMO_USER);
+  const [view,  setView]  = useState("chat");
+  const [convId, setConvId] = useState(null);
 
- const { conversaciones: convList, loading } = useConversations(user.id);
-  // Load conversation list on mount
+  const { conversaciones: convList } = useConversations(user.id);
 
   const handleNewChat = () => {
     setConvId(null);
@@ -32,9 +30,7 @@ export default function App() {
     setView("chat");
   };
 
-  const handleViewHistory = () => {
-    setView("history");
-  };
+  const handleViewHistory = () => setView("history");
 
   return (
     <div style={{
@@ -52,23 +48,23 @@ export default function App() {
         activeConvId={convId}
         onNewChat={handleNewChat}
         onSelectConv={handleSelectConv}
-        onLogout={() => {
-          // Replace with real logout logic if you add auth later
-          window.location.reload();
-        }}
+        onLogout={() => window.location.reload()}
         user={user}
       />
 
       {/* ── MAIN AREA ── */}
-      <main style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
-        background: colors.bg,
-        backgroundImage:
-          "radial-gradient(ellipse 60% 40% at 70% 5%, rgba(59,130,246,0.06) 0%, transparent 55%)",
-      }}>
+      <main
+        className="main-content"
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          background: colors.bg,
+          backgroundImage:
+            "radial-gradient(ellipse 60% 40% at 70% 5%, rgba(59,130,246,0.06) 0%, transparent 55%)",
+        }}
+      >
         {view === "chat" ? (
           <ChatView
             user={user}

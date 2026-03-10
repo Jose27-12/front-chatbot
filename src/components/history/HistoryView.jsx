@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { colors } from "../../styles/tokens";
 import { analyzeSentiment, extractKeywords, summarize } from "../../utils/nlp";
 import { buildConversationPdf } from "../../utils/reportPdf";
@@ -159,12 +159,12 @@ export default function HistoryView({ user }) {
         </div>
 
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto auto auto",
-            gap: "10px",
-            marginBottom: "20px",
-          }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              marginBottom: "20px",
+            }}
         >
           <Field
             placeholder="🔍 Buscar por título o resumen..."
